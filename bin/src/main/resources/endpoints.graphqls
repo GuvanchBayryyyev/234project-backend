@@ -1,0 +1,16 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+type Query{
+    products:[Product]
+    saleTransactions:[SaleTransaction]
+    saleOrders: [SaleOrder]
+    user(username:String, password:String): User
+}
+
+type Mutation{
+    addOrder(order:inputOrder):SaleOrder
+
+}
+

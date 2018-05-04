@@ -1,0 +1,50 @@
+type Product{
+    id: ID
+    productId: String
+    name: String
+    description: String
+    imageLocation: String
+    price: Float
+}
+
+type User{
+    id: ID
+    username: String
+    password: String
+    role: String
+}
+
+type SaleTransaction{
+    id:ID
+    transactionId: String
+    product:Product
+    amount:Int
+
+}
+
+type SaleOrder{
+    id: ID
+    saleOrderId: String
+    transactions: [SaleTransaction]
+    totalPrice: Float
+}
+input inputOrder {
+
+    transactions: [inputSaleTransaction]
+
+}
+
+input inputSaleTransaction{
+
+    amount: Int
+    product: inputProduct
+}
+
+input inputProduct{
+    id: ID
+    productId: String
+    name: String
+    description: String
+    imageLocation: String
+    price: Float
+}
