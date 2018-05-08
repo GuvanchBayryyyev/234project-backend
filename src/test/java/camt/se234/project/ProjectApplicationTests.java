@@ -25,6 +25,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -100,10 +102,22 @@ public class ProjectApplicationTests {
     @Test
     public void testGetAllProducts() {//using mock object
     	List<Product> mockPros = new ArrayList<Product>();
-    	mockPros.add(new Product("000","123","apple","fresh apple","",20.0));
-    	mockPros.add(new Product("001","124","orange","fresh orange","",25.0));
+    	mockPros.add(new Product("000","123","apple","fresh apple","somehere",20.0));
+    	mockPros.add(new Product("001","124","orange","fresh orange","somehere",25.0));
     	when(proDao.getProducts()).thenReturn(mockPros);
     	assertThat(proService.getAllProducts(),is(mockPros));
+    }
+    @Test
+    public void testGetAvailProds() {
+    	List<Product> mockPros2 = new ArrayList<>();
+    	mockPros2.add(new Product("000","123","apple","fresh apple","somehere",20.0));
+    	mockPros2.add(new Product("001","124","orange","fresh orange","somehere",0.0));
+    	mockPros2.add(new Product("002","125","grape","fresh grape","somehere",30.0));
+
+    	when(proDao.getProducts()).thenReturn(mockPros2);
+    	assertThat(proService.getAvailableProducts(),hasItems(new Product("000","123","apple","fresh apple","somehere",20.0),
+    			new Product("002","125","grape","fresh grape","somehere",30.0)));
+    	
     }
 	
 	
