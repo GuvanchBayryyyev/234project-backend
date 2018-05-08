@@ -108,7 +108,7 @@ public class ProjectApplicationTests {
     	assertThat(proService.getAllProducts(),is(mockPros));
     }
     @Test
-    public void testGetAvailProds() {
+    public void testGetAvailProds() {//using mock object
     	List<Product> mockPros2 = new ArrayList<>();
     	mockPros2.add(new Product("000","123","apple","fresh apple","somehere",20.0));
     	mockPros2.add(new Product("001","124","orange","fresh orange","somehere",0.0));
@@ -117,7 +117,16 @@ public class ProjectApplicationTests {
     	when(proDao.getProducts()).thenReturn(mockPros2);
     	assertThat(proService.getAvailableProducts(),hasItems(new Product("000","123","apple","fresh apple","somehere",20.0),
     			new Product("002","125","grape","fresh grape","somehere",30.0)));
+      }
+    @Test
+    public void TestGetUnavailProdSize() {//using mock object
+    	List<Product> mockPros3 = new ArrayList<>();
+    	mockPros3.add(new Product("000","123","apple","fresh apple","somehere",20.0));
+    	mockPros3.add(new Product("001","124","orange","fresh orange","somehere",0.0));
+    	mockPros3.add(new Product("002","125","grape","fresh grape","somehere",30.0));
+    	when(proDao.getProducts()).thenReturn(mockPros3);
     	
+    	assertThat(proService.getUnavailableProductSize(),is(1));// return 3-2
     }
 	
 	
