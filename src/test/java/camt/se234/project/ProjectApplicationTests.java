@@ -89,22 +89,21 @@ public class ProjectApplicationTests {
 	}
     
     @Test
-    public void testAuthenticate() {
+    public void testAuthenticate() {//using mock object
     	List<User> mockUsers = new ArrayList<User>();
     	mockUsers.add(new User("111", "Admin", "admin", "admin"));
-    	mockUsers.add(new User("222", "Guvanch", "guvanch", "student"));
-    	mockUsers.add(new User("333", "Staff", "staff", "staff"));
-    	
     	when(userDao.getUser("Admin","admin")).thenReturn(new User("111", "Admin", "admin", "admin") );
-    	when(userDao.getUser("Guvanch","guvanch")).thenReturn(new User("222", "Guvanch", "guvanch", "student") );
-    	when(userDao.getUser("Staff","staff")).thenReturn(new User("333", "Staff", "staff", "staff") );
-    	
-		
     	assertThat(authService.authenticate("Admin","admin"),is(new User("111", "Admin", "admin", "admin")));
-		assertThat(authService.authenticate("Guvanch","guvanch"),is(new User("222", "Guvanch", "guvanch", "student")));
-		assertThat(authService.authenticate("Staff","staff"),is(new User("333", "Staff", "staff", "staff")));
 		assertThat(authService.authenticate("somebody","anybody"),is(nullValue()));//check if this user doesnt exist
 		 	
+    }
+    @Test
+    public void testGetAllProducts() {//using mock object
+    	List<Product> mockPros = new ArrayList<Product>();
+    	mockPros.add(new Product("000","123","apple","fresh apple","",20.0));
+    	mockPros.add(new Product("001","124","orange","fresh orange","",25.0));
+    	when(proDao.getProducts()).thenReturn(mockPros);
+    	assertThat(proService.getAllProducts(),is(mockPros));
     }
 	
 	
