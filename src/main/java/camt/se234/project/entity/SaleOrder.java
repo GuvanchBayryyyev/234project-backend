@@ -19,7 +19,7 @@ import java.util.List;
 public class SaleOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    String id;
     String saleOrderId;
     @Builder.Default
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

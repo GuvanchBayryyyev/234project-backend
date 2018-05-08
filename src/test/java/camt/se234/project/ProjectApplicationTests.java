@@ -1,6 +1,8 @@
 package camt.se234.project;
 
 
+import camt.se234.project.dao.OrderDao;
+import camt.se234.project.dao.OrderDaoImpl;
 import camt.se234.project.dao.ProductDao;
 import camt.se234.project.dao.ProductDaoImpl;
 import camt.se234.project.dao.UserDao;
@@ -13,6 +15,7 @@ import camt.se234.project.repository.ProductRepository;
 import camt.se234.project.service.AuthenticationServiceImpl;
 import camt.se234.project.service.ProductServiceImpl;
 import camt.se234.project.service.SaleOrderService;
+import camt.se234.project.service.SaleOrderServiceImpl;
 
 import org.hamcrest.Matcher;
 import org.junit.Before;
@@ -76,6 +79,10 @@ public class ProjectApplicationTests {
     ProductDao proDao;
     ProductServiceImpl proService;
     ProductDaoImpl proDaoImpl;
+    
+    OrderDao orderDao;
+    SaleOrderServiceImpl orderService;
+    OrderDaoImpl orderImpl;
 	
     @Before
 	public void setup() {
@@ -88,6 +95,11 @@ public class ProjectApplicationTests {
     	proService = new ProductServiceImpl();
     	proService.setProductDao(proDao);
     	proDaoImpl = new ProductDaoImpl();
+    	
+    	orderDao = mock(OrderDao.class);
+    	orderService = new SaleOrderServiceImpl();
+    	orderService.setOrderDao(orderDao);
+    	orderImpl = new OrderDaoImpl();
 	}
     
     @Test
@@ -119,7 +131,7 @@ public class ProjectApplicationTests {
     			new Product("002","125","grape","fresh grape","somehere",30.0)));
       }
     @Test
-    public void TestGetUnavailProdSize() {//using mock object
+    public void testGetUnavailProdSize() {//using mock object
     	List<Product> mockPros3 = new ArrayList<>();
     	mockPros3.add(new Product("000","123","apple","fresh apple","somehere",20.0));
     	mockPros3.add(new Product("001","124","orange","fresh orange","somehere",0.0));
@@ -128,6 +140,38 @@ public class ProjectApplicationTests {
     	
     	assertThat(proService.getUnavailableProductSize(),is(1));// return 3-2
     }
+    @Test
+    public void testGetSaleOrders() {
+            List<SaleTransaction> mockTransactions1 = new ArrayList<>();
+            List<SaleTransaction> mockTransactions2 = new ArrayList<>();
+            mockTransactions1.add(new SaleTransaction("trans1", "transId1", new SaleOrder("saleOrder1","saleOrderId1", mockTransactions1),
+                    new Product("000","123","apple","fresh apple","somehere",20.0), 5));
+            mockTransactions2.add(new SaleTransaction("trans2", "transId2", new SaleOrder("saleOrder2","saleOrderId2", mockTransactions2),
+                    new Product("001","124","orange","fresh orange","somehere",0.0), 2));
+            List<SaleOrder> mockOrders = new ArrayList<SaleOrder>();
+            mockOrders.add(new SaleOrder("saleOrder1","saleOrderId1", mockTransactions1));
+            mockOrders.add(new SaleOrder("saleOrder2","saleOrderId2", mockTransactions2));
+            when(orderDao.getOrders()).thenReturn(mockOrders);
+            assertThat(saleOrderService.getSaleOrders(), hasItems(new SaleOrder("saleOrder1","saleOrderId1", mockTransactions1),
+            		new SaleOrder("saleOrder2","saleOrderId2", mockTransactions2)));
+       
+    }
+    
 	
 	
 }
+//@Test
+//public void testGetSaleOrders() {
+//    List<SaleTransaction> mockTransactions1 = new ArrayList<>();
+//    List<SaleTransaction> mockTransactions2 = new ArrayList<>();
+//    mockTransactions1.add(new SaleTransaction("transaction1", new SaleOrder("saleOrder1", mockTransactions1),
+//            new Product("1", "apple", "Kind of fruit", "location",35.0), 5));
+//    mockTransactions2.add(new SaleTransaction("transaction2", new SaleOrder("saleOrder2", mockTransactions2),
+//            new Product("2", "yogurt", "milk product", "location", 12.0), 2));
+//    List<SaleOrder> mockOrders = new ArrayList<>();
+//    mockOrders.add(new SaleOrder("saleOrder1", mockTransactions1));
+//    mockOrders.add(new SaleOrder("saleOrder2", mockTransactions2));
+//    when(orderDao.getOrders()).thenReturn(mockOrders);
+//    assertThat(saleOrderService.getSaleOrders(), hasItems(new SaleOrder("saleOrder1", mockTransactions1),
+//            new SaleOrder("saleOrder2", mockTransactions2)));
+//}
