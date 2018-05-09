@@ -9,8 +9,8 @@ before_install:
 install:
 - mvn install -Dmaven.javadoc.skip=true -B -V
 - ls -l
-- docker build --build-arg JAR_FILE=/target/backend.jar -t dto80/234project-backend  .
-- docker push dto80/234project-backend
+- docker build --build-arg JAR_FILE=/target/backend.jar -t guvanch/234project-backend  .
+- docker push guvanch/234project-backend
 - docker pull dto80/project234-frontend
 
 script:
