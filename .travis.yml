@@ -5,6 +5,7 @@ before_install:
 - curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname
   -s`-`uname -m` > docker-compose
 - chmod +x docker-compose
+- chmod +x mvnw
 - sudo mv docker-compose /usr/local/bin
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 install:
