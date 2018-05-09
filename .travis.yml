@@ -1,7 +1,7 @@
 language: java
 before_install:
 - sudo rm /usr/local/bin/docker-compose
-- curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname
+- curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname
   -s`-`uname -m` > docker-compose
 - chmod +x docker-compose
 - sudo mv docker-compose /usr/local/bin
@@ -9,9 +9,9 @@ before_install:
 install:
 - mvn install -Dmaven.javadoc.skip=true -B -V
 - ls -l
-- docker build --build-arg JAR_FILE=/target/backend.jar -t guvanch/234project-backend  .
+- docker build --build-arg JAR_FILE=/target/project.jar -t guvanch/234project-backend  .
 - docker push guvanch/234project-backend
-- docker pull dto80/project234-frontend
+- docker pull dto80/project234-frontend:latest
 
 script:
 - docker-compose -H "$DOCKER_HOST" up -d
