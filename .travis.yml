@@ -12,9 +12,6 @@ install:
 - docker build --build-arg JAR_FILE=/target/project.jar -t guvanch/234project-backend  .
 - docker push guvanch/234project-backend
 - docker pull dto80/project234-frontend:latest
-
-script:
-- docker-compose -H "$DOCKER_HOST" up -d
 cache:
   directories:
   - "$HOME/.m2"
