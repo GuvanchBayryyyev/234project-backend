@@ -8,6 +8,5 @@ services:
     image: dto80/project234-frontend:latest
     ports:
       - "2222:80"
-    volume:
-    - /usr/share/nginx/html/assets
+   
 
