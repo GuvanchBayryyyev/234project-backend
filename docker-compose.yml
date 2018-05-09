@@ -3,7 +3,7 @@ services:
   backend:
     image: guvanch/project234-backend:latest
     ports: 
-      - "1111:8080"
+      - "1122:8080"
   frontend:
     image: dto80/project234-frontend:latest
     ports:
