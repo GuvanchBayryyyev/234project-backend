@@ -46,11 +46,11 @@ if [ -z "$MAVEN_SKIP_RC" ] ; then
 
 fi
 
-# OS specific support.  $var must be set to either true or false.
+# OS specific support.  $var _must_ be set to either true or false.
 cygwin=false;
 darwin=false;
 mingw=false
-case "uname" in
+case "`uname`" in
   CYGWIN*) cygwin=true ;;
   MINGW*) mingw=true;;
   Darwin*) darwin=true
@@ -79,7 +79,7 @@ if [ -z "$M2_HOME" ] ; then
   # need this for relative symlinks
   while [ -h "$PRG" ] ; do
     ls=`ls -ld "$PRG"`
-    link=`expr "$ls" : '.*-> .*.∗$'`
+    link=`expr "$ls" : '.*-> \(.*\)$'`
     if expr "$link" : '/.*' > /dev/null; then
       PRG="$link"
     else
@@ -111,25 +111,25 @@ fi
 # For Migwn, ensure paths are in UNIX format before anything is touched
 if $mingw ; then
   [ -n "$M2_HOME" ] &&
-    M2_HOME="(cd "$M2_HOME"; pwd)"
+    M2_HOME="`(cd "$M2_HOME"; pwd)`"
   [ -n "$JAVA_HOME" ] &&
-    JAVA_HOME="(cd "$JAVA_HOME"; pwd)"
+    JAVA_HOME="`(cd "$JAVA_HOME"; pwd)`"
   # TODO classpath?
 fi
 
 if [ -z "$JAVA_HOME" ]; then
-  javaExecutable="which javac"
-  if [ -n "$javaExecutable" ] && ! [ "expr \"$javaExecutable\" : '\([^ ]*\)'" = "no" ]; then
+  javaExecutable="`which javac`"
+  if [ -n "$javaExecutable" ] && ! [ "`expr \"$javaExecutable\" : '\([^ ]*\)'`" = "no" ]; then
     # readlink(1) is not available as standard on Solaris 10.
     readLink=`which readlink`
-    if [ ! expr "$readLink" : '\([^ ]*\)' = "no" ]; then
+    if [ ! `expr "$readLink" : '\([^ ]*\)'` = "no" ]; then
       if $darwin ; then
-        javaHome="dirname \"$javaExecutable\""
+        javaHome="`dirname \"$javaExecutable\"`"
         javaExecutable="`cd \"$javaHome\" && pwd -P`/javac"
       else
-        javaExecutable="readlink -f \"$javaExecutable\""
+        javaExecutable="`readlink -f \"$javaExecutable\"`"
       fi
-      javaHome="dirname \"$javaExecutable\""
+      javaHome="`dirname \"$javaExecutable\"`"
       javaHome=`expr "$javaHome" : '.*.∗/bin'`
       JAVA_HOME="$javaHome"
       export JAVA_HOME
@@ -146,7 +146,7 @@ if [ -z "$JAVACMD" ] ; then
       JAVACMD="$JAVA_HOME/bin/java"
     fi
   else
-    JAVACMD="which java"
+    JAVACMD="`which java`"
   fi
 fi
 
