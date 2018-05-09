@@ -10,8 +10,8 @@ before_install:
 install:
 - mvn install -Dmaven.javadoc.skip=true -B -V
 - ls -l
-- docker build --build-arg JAR_FILE=/target/project.jar -t guvanch/234project-backend .
-- docker push guvanch/234project-backend
+- docker build --build-arg JAR_FILE=/target/project.jar -t guvanch/project234-backend .
+- docker push guvanch/project234-backend
 - docker pull dto80/project234-frontend:latest
 cache:
   directories:

@@ -1,12 +1,10 @@
 version: '3.3'
 services:
   backend:
-    image: dto80/234project-backend:latest
-    ports:
-      - "1111:8080"
+    image: guvanch/project234-backend:latest
+    ports: 
+      - "8093:8080"
   frontend:
     image: dto80/project234-frontend:latest
     ports:
-      - "2222:80"
-   
-
+      - "8094:80"
