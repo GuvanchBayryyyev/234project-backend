@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -19,7 +18,7 @@ import java.util.List;
 public class SaleOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    String id;
+    Long id;
     String saleOrderId;
     @Builder.Default
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -31,5 +30,38 @@ public class SaleOrder {
             totalPrice += transaction.getAmount() * transaction.getProduct().getPrice();
         }
         return totalPrice;
+    }
+
+    public SaleOrder(String saleOrderId) {
+        this.saleOrderId = saleOrderId;
+    }
+
+    public SaleOrder(String saleOrderId, List<SaleTransaction> transactions) {
+        this.saleOrderId = saleOrderId;
+        this.transactions = transactions;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getSaleOrderId() {
+        return saleOrderId;
+    }
+
+    public void setSaleOrderId(String saleOrderId) {
+        this.saleOrderId = saleOrderId;
+    }
+
+    public List<SaleTransaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<SaleTransaction> transactions) {
+        this.transactions = transactions;
     }
 }
