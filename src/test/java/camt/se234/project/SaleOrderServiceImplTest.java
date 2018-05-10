@@ -8,11 +8,12 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import camt.se234.project.dao.OrderDao;
-import camt.se234.project.dao.OrderDaoImpl;
 import camt.se234.project.entity.Product;
 import camt.se234.project.entity.SaleOrder;
 import camt.se234.project.entity.SaleTransaction;
@@ -21,8 +22,8 @@ import camt.se234.project.service.SaleOrderServiceImpl;
 public class SaleOrderServiceImplTest {
 	OrderDao orderDao;
 	SaleOrderServiceImpl orderService;
-	OrderDaoImpl orderImpl;
-
+     
+    @Before	
 	public void setup() {
 
 		orderDao = mock(OrderDao.class);
