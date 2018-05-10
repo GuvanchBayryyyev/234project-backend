@@ -36,10 +36,10 @@ public class SaleOrderServiceImplTest {
     public void testGetSaleOrders() {
         List<SaleTransaction> mockTransactions1 = new ArrayList<>();
         List<SaleTransaction> mockTransactions2 = new ArrayList<>();
-        mockTransactions1.add(new SaleTransaction("transaction1", new SaleOrder("saleOrder1", mockTransactions1),
-                new Product("1", "apple", "Kind of fruit", "location",35.0), 5));
-        mockTransactions2.add(new SaleTransaction("transaction2", new SaleOrder("saleOrder2", mockTransactions2),
-                new Product("2", "yogurt", "milk product", "location", 12.0), 2));
+        mockTransactions1.add(new SaleTransaction("trans1", new SaleOrder("saleOrder1", mockTransactions1),
+                new Product("000", "apple", "fresh apple", "somewhere",35.0), 5));
+        mockTransactions2.add(new SaleTransaction("trans2", new SaleOrder("saleOrder2", mockTransactions2),
+                new Product("001", "orange", "fresh orange", "anywhere", 12.0), 2));
         List<SaleOrder> mockOrders = new ArrayList<>();
         mockOrders.add(new SaleOrder("saleOrder1", mockTransactions1));
         mockOrders.add(new SaleOrder("saleOrder2", mockTransactions2));
@@ -53,9 +53,9 @@ public class SaleOrderServiceImplTest {
         List<SaleTransaction> mockTransactions1 = new ArrayList<>();
         List<SaleTransaction> mockTransactions2 = new ArrayList<>();
         mockTransactions1.add(new SaleTransaction("transaction1", new SaleOrder("saleOrder1", mockTransactions1),
-                new Product("1", "apple", "Kind of fruit", "location",35.0), 5));
+                new Product("000", "apple", "fresh apple", "somewhere",35.0), 5));
         mockTransactions2.add(new SaleTransaction("transaction2", new SaleOrder("saleOrder2", mockTransactions2),
-                new Product("2", "yogurt", "milk product", "location", 12.0), 2));
+                new Product("001", "orange", "fresh orange", "anywhere", 12.0), 2));
         List<SaleOrder> mockOrders = new ArrayList<>();
         mockOrders.add(new SaleOrder("saleOrder1", mockTransactions1));
         mockOrders.add(new SaleOrder("saleOrder2", mockTransactions2));
