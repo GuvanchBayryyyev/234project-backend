@@ -9,14 +9,16 @@ before_install:
 - sudo mv docker-compose /usr/local/bin
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 install:
-- mvn install -Dmaven.javadoc.skip=true -B -V
-- ls -l
-- docker build --build-arg JAR_FILE=/target/project.jar -t guvanch/project234-backend .
 - docker push guvanch/project234-backend
 - docker pull dto80/project234-frontend:latest
-- docker push guvanch/234project-backend
 script:
-- docker-compose -H "$DOCKER_HOST" up -d
+  - mvn install -Dmaven.javadoc.skip=true -B -V
+  - docker build --build-arg JAR_FILE=/target/backend.jar -t guvanch/234project-backend  .
+  - docker push guvanch/234project-backend
+after_success:
+  - docker-compose -H "$DOCKER_HOST" stop -d
+  - docker-compose -H "$DOCKER_HOST" rm -d
+  - docker-compose -H "$DOCKER_HOST" up -d
 cache:
   directories:
   - "$HOME/.m2"
