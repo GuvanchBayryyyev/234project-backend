@@ -6,7 +6,7 @@ script:
   - mvn install -Dmaven.javadoc.skip=true -B -V
   - docker build --build-arg JAR_FILE=/target/backend.jar -t guvanch/234project-backend  .
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-  - docker push backend/234project-backend
+  - docker push guvanch/234project-backend
 after_success:
   - docker-compose -H "$DOCKER_HOST" stop -d
   - docker-compose -H "$DOCKER_HOST" rm -d
